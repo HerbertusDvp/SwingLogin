@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LoginForm extends JFrame {
     private JPanel pPrincipal;
@@ -11,6 +13,28 @@ public class LoginForm extends JFrame {
 
     public LoginForm(){
         iniciarForma();
+        bEnviar.addActionListener(e -> {
+            validar();
+        });
+    }
+
+    private void validar(){
+        //Leer usuarios
+        var usuario = this.tfUsuario.getText();
+        var password = new String(this.pfPassword.getPassword());
+
+        if (usuario.equals("root") && "admin".equals(password))
+            mostrarMensaje("Bienvenido!");
+        else if(usuario.equals("root"))
+            mostrarMensaje("Password incorrecto");
+        else if (password.equals("admin"))
+            mostrarMensaje("Usuario incorrecto");
+        else
+            mostrarMensaje("Datos incorrectos..");
+    }
+
+    private void mostrarMensaje(String mensaje){
+        JOptionPane.showMessageDialog(this, mensaje);
     }
 
     private void iniciarForma(){
